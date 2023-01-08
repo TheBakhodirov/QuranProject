@@ -1,0 +1,89 @@
+.homepage {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    // background-image: url("https://wallpapercave.com/wp/wp4699573.jpg");
+    // background-color: #2225;
+    // background-blend-mode: multiply;
+
+    .logo {
+        font-size: 3rem;
+        margin-bottom: 3rem;
+    }
+
+    .links {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 3rem;
+
+        .link-btn {
+            width: 300px;
+            height: 400px;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            text-align: center;
+            background-color: #3332;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-blend-mode: multiply;
+            background-size: cover;
+            backdrop-filter: blur(4px);
+            border-radius: 4px;
+            transition: .5s;
+            overflow: hidden;
+
+            img {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 0;
+                opacity: .5;
+                object-fit: cover;
+                transition: inherit;
+            }
+
+            p {
+                width: 100%;
+                margin: 0;
+                padding: .4rem 0 .6rem;
+                font-size: 1.7rem;
+                color: #eee;
+                opacity: 0;
+                transition: inherit;
+            }
+
+            &:hover {
+
+                img {
+                    opacity: 1;
+                }
+                
+                p {
+                    opacity: .6;
+                    background: #000;
+                }
+            }
+        }
+
+        .surah-btn {
+            // background-image: url("https://i0.wp.com/www.godhdwallpapers.com/wallpapers/2018/11/quran-wallpaper-image-gallery.jpg");
+            // background-position: 20% 0;
+
+            img {
+                object-position: 30% 0;
+            }
+        }
+
+        .prayer-btn {
+            // background-image: url("https://w0.peakpx.com/wallpaper/324/883/HD-wallpaper-muslims-prayers-black-and-white-islamic-man-muslim-prayer.jpg");
+        }
+    }
+}
