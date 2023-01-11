@@ -4,6 +4,7 @@ const playerSlice = createSlice({
   name: "player",
   initialState: {
     audioArray: [],
+    dataSuccess: false,
     showPlayer: false,
     currentAudio: null,
     isPlaying: false,

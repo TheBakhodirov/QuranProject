@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { playerActions } from "../../redux/playerSlice";
 import Ayah from "../../components/ayahBox/Ayah";
 import Error from "../../components/errorMsg/Error";
@@ -21,6 +21,7 @@ const Surah = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
+  const { dataSuccess } = useSelector((state) => state.player);
 
   useEffect(() => {
     async function getSurah() {
@@ -48,8 +49,6 @@ const Surah = () => {
     getSurah();
     getUzEdit();
   }, []);
-
-  function playAyah(ayahNumber) {}
 
   return !loading ? (
     !error ? (
