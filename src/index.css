@@ -16,12 +16,13 @@
 }
 
 body {
-  height: 100vh;
+  min-height: 100vh;
   margin: 0;
   padding: 0;
   background-image: url("https://wallpapercave.com/wp/wp4699573.jpg");
   background-color: #2227;
   background-blend-mode: multiply;
+  background-attachment: fixed;
 }
 
 a,

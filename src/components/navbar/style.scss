@@ -1,7 +1,33 @@
 .navbar {
     width: 100%;
     height: 5vh;
+    padding: 0 0 1rem;
+    position: sticky;
+    top: 0;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    justify-content: center;
+    z-index: 10;
+
+    button{
+        flex: 1;
+        font-size: 1.2rem;
+        background-color: #333a;
+        backdrop-filter: blur(2px);
+        border: none;
+        outline: none;
+
+        &:hover{
+            // background: #111a;
+            filter: brightness(1.4);
+        }
+
+        &:not(:last-of-type){
+            border-right: 1px solid #aaa;
+        }
+    }
+    
+    .home-btn {
+        width: 100%;
+        color: #3d6a6a;
+    }
 }
