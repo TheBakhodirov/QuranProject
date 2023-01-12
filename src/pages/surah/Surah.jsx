@@ -7,6 +7,7 @@ import Ayah from "../../components/ayahBox/Ayah";
 import Error from "../../components/errorMsg/Error";
 import Loading from "../../components/loading/Loading";
 import "./style.scss";
+import { surahActions } from "../../redux/surahSlice";
 
 const api = axios.create({
   baseURL: "http://api.alquran.cloud/v1/surah",
@@ -21,7 +22,7 @@ const Surah = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  const { dataSuccess } = useSelector((state) => state.player);
+  const { success } = useSelector((state) => state.surah);
 
   useEffect(() => {
     async function getSurah() {
@@ -34,6 +35,7 @@ const Surah = () => {
       setEnName(data.englishName);
       setAyahs(data.ayahs);
       dispatch(playerActions.setAudios(data.ayahs));
+      dispatch(surahActions.getSurahSuccess());
       console.log(data.ayahs);
     }
 

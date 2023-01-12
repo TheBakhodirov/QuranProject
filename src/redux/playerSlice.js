@@ -4,10 +4,11 @@ const playerSlice = createSlice({
   name: "player",
   initialState: {
     audioArray: [],
-    dataSuccess: false,
     showPlayer: false,
     currentAudio: null,
+    currentAudioNumber: 0,
     isPlaying: false,
+    paused: true,
   },
   reducers: {
     showPlayer(state) {
@@ -21,11 +22,18 @@ const playerSlice = createSlice({
     },
     setCurrentAudio(state, { payload }) {
       state.currentAudio = payload;
-      console.log(payload);
+    },
+    setCurrentAudioNumber(state, { payload }) {
+      state.currentAudioNumber = payload;
+      console.log(payload.audio, payload.number);
+    },
+    setPause(state, { payload }) {
+      state.paused = payload;
     },
     play(state) {
       state.isPlaying = true;
-      console.log(state.isPlaying);
+      state.paused = false;
+      console.log("isplaying ---", state.isPlaying, "paused ---", state.paused);
     },
     stop(state) {
       state.isPlaying = false;
