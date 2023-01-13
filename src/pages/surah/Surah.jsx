@@ -17,12 +17,14 @@ const Surah = () => {
   const state = useParams();
   const [arName, setArName] = useState(null);
   const [enName, setEnName] = useState(null);
+  const [surahNumber, setSurahNumber] = useState(1);
   const [ayahs, setAyahs] = useState([]);
   const [uzAyahs, setUzAyahs] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const dispatch = useDispatch();
+  const { playingSurah } = useSelector((state) => state.player);
   const { success } = useSelector((state) => state.surah);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     async function getSurah() {
@@ -34,9 +36,8 @@ const Surah = () => {
       setArName(data.name);
       setEnName(data.englishName);
       setAyahs(data.ayahs);
-      dispatch(playerActions.setAudios(data.ayahs));
+      setSurahNumber(data.number);
       dispatch(surahActions.getSurahSuccess());
-      console.log(data.ayahs);
     }
 
     async function getUzEdit() {
@@ -51,6 +52,18 @@ const Surah = () => {
     getSurah();
     getUzEdit();
   }, []);
+
+  useEffect(() => {
+    if (!playingSurah) {
+      changeSurah();
+    }
+  }, [success]);
+
+  function changeSurah() {
+    dispatch(playerActions.setAudios(ayahs));
+    dispatch(playerActions.setCurrentSurahName(enName));
+    dispatch(playerActions.setCurrentSurahNumber(surahNumber));
+  }
 
   return !loading ? (
     !error ? (
@@ -67,6 +80,7 @@ const Surah = () => {
                 arText={item.text}
                 uzText={uzAyahs[i].text}
                 audio={item.audio}
+                changeSurah={changeSurah}
               />
             );
           })}

@@ -3,15 +3,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { playerActions } from "../../redux/playerSlice";
 import "./style.scss";
 
-const Ayah = ({ number, arText, uzText, audio }) => {
-  const { paused } = useSelector((state) => state.player);
+const Ayah = ({ number, arText, uzText, audio, changeSurah }) => {
+  const { paused, showPlayer } = useSelector((state) => state.player);
   const dispatch = useDispatch();
 
   function handleClick() {
-    dispatch(playerActions.showPlayer());
+    changeSurah();
+    if (!showPlayer) dispatch(playerActions.showPlayer());
     dispatch(playerActions.setCurrentAudio(audio));
     dispatch(playerActions.setCurrentAudioNumber(number));
     dispatch(playerActions.play());
+    
   }
 
   return (
