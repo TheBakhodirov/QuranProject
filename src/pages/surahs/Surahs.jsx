@@ -8,7 +8,7 @@ import { LoaderWithWrapper } from "../../components/loader/Loader";
 import Error from "../../components/errorMsg/Error";
 
 const api = axios.create({
-  baseURL: "http://api.alquran.cloud/v1/surah",
+  baseURL: "https://api.alquran.cloud/v1/surah",
 });
 
 const Surahs = () => {

@@ -10,7 +10,7 @@ import "./style.scss";
 import { surahActions } from "../../redux/surahSlice";
 
 const api = axios.create({
-  baseURL: "http://api.alquran.cloud/v1/surah",
+  baseURL: "https://api.alquran.cloud/v1/surah",
 });
 
 const Surah = () => {
