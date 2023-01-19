@@ -25,19 +25,19 @@ const Player = () => {
   const [audioStateSuccess, setAudioStateSuccess] = useState(false);
   const [audioStateLoading, setAudioStateLoading] = useState(false);
 
-  console.log(audioArray);
-  console.log(
-    "CurrentAUDIO ---",
-    currentAudioNumber,
-    "CurrentNumber --- ",
-    currentNumber
-  );
+  // console.log(audioArray);
+  // console.log(
+  //   "CurrentAUDIO ---",
+  //   currentAudioNumber,
+  //   "CurrentNumber --- ",
+  //   currentNumber
+  // );
 
   useEffect(() => {
     setCurrentNumber(currentAudioNumber);
   }, [currentAudioNumber]);
 
-  console.log("PAUSED BEFORE ---", audioElement.current?.paused);
+  // console.log("PAUSED BEFORE ---", audioElement.current?.paused);
 
   useEffect(() => {
     if (success) {
@@ -88,7 +88,7 @@ const Player = () => {
     const duration = audioElement.current.duration;
     const ct = audioElement.current.currentTime;
     const currentProgress = (ct / duration) * 100;
-    // setProgress(currentProgress);
+    setProgress(currentProgress);
   }
 
   function onLoading() {

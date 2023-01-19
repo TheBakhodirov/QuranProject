@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import "./App.scss";
 import Player from "./components/audioPlayer/Player";
 import Home from "./pages/home/Home";
-import PrayerTime from "./pages/prayer-time/PrayerTime";
+import PrayerTime from "./pages/prayer-time/PrayerTimePage";
 import Surah from "./pages/surah/Surah";
 import Surahs from "./pages/surahs/Surahs";
 

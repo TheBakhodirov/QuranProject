@@ -6,7 +6,7 @@
     column-gap: 3rem;
     row-gap: 2rem;
 
-    .surah-box{
+    .surah-box {
         min-width: 220px;
         padding: .4rem 0;
         display: flex;
@@ -14,16 +14,17 @@
         justify-content: center;
         gap: .6rem;
         font-size: 1.4rem;
-        background-color: #444;
+        background-color: #444a;
         border-radius: 4px;
         opacity: .8;
         transition: .2s;
 
-        &:hover{
+        &:hover {
+            background-color: #333e;
             opacity: 1;
         }
 
-        .number{
+        .number {
             width: 50px;
             height: 50px;
             display: flex;
@@ -35,7 +36,7 @@
             border-radius: 50%;
         }
 
-        .name{
+        .name {
             font-size: 1.5rem;
             font-weight: 500;
             color: cornflowerblue;

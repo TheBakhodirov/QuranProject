@@ -19,7 +19,12 @@ body {
   min-height: 100vh;
   margin: 0;
   padding: 0;
-  background-image: url("https://wallpapercave.com/wp/wp4699573.jpg");
+  /* background-image: url("https://wallpapercave.com/wp/wp4699573.jpg"); */
+  background-image: url("https://media.istockphoto.com/id/1346899650/vector/black-and-gold-luxury-leaves-background-vector-ornament-pattern-paisley-elements-great-for.jpg?b=1&s=612x612&w=0&k=20&c=gN1PslM9NQpdnXa2jq4vF3FevQHkOHdJeEThbnl-DSA=");
+  background-image: url("https://www.creativefabrica.com/wp-content/uploads/2021/02/22/Luxury-Mandala-Islamic-Background-Graphics-8837807-1.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
   background-color: #2227;
   background-blend-mode: multiply;
   background-attachment: fixed;

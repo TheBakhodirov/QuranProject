@@ -1,0 +1,72 @@
+.prayer-times {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .title {
+        margin: 0;
+        font-size: 2rem;
+
+        .region-name {
+            color: burlywood;
+        }
+    }
+
+    .controls {
+        display: flex;
+        gap: 1rem;
+
+        p {
+            margin-bottom: 0;
+        }
+    }
+
+    .prayer-box {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 1rem 4rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        .prayer {
+            width: 100%;
+            box-sizing: border-box;
+            padding: .1rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 1.4rem;
+            background-color: #fff1;
+            backdrop-filter: blur(10px) saturate(2) hue-rotate(20deg);
+            border-radius: 4px;
+
+            &-current {
+                backdrop-filter: blur(50px) saturate(3) hue-rotate(30deg) brightness(2);
+                box-shadow: 0 0 50px #fff5 inset, 0 0 20px #eee5, 0 0 30px #fff3;
+                border-right: .5px solid #eee5;
+                border-bottom: .5px solid #eee5;
+            }
+
+            &-name {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+
+                .icon {
+                    filter: invert(1);
+                }
+
+                .name {
+                    text-transform: capitalize;
+                }
+            }
+
+            &-time {
+                font-size: 1.5rem;
+                font-weight: 600;
+            }
+        }
+    }
+}
