@@ -44,7 +44,11 @@ const PrayerTime = () => {
       prayerTimes.push({
         ...prayerTimesIcons[index],
         time: value,
-        isCurrent: isCurrentPrayer(value, Object.values(obj)[index + 1]),
+        isCurrent: isCurrentPrayer(
+          value,
+          Object.values(obj)[index + 1],
+          Object.values(obj)[0]
+        ),
       });
     });
     setPrayers(prayerTimes);
@@ -59,10 +63,14 @@ const PrayerTime = () => {
   function getTime() {
     const date = new Date();
     let minutes = date.getMinutes();
+    let hours = date.getHours();
     if (minutes < 10) {
       minutes = "0" + minutes;
     }
-    const time = `${date.getHours()} : ${minutes}`;
+    if (hours < 10) {
+      hours = "0" + hours;
+    }
+    const time = `${hours} : ${minutes}`;
     return time;
   }
 
@@ -87,14 +95,17 @@ const PrayerTime = () => {
     return format.replace(/mm|dd|yy|yyy/gi, (matched) => map[matched]);
   }
 
-  function isCurrentPrayer(prayerTime, nextPrayerTime) {
+  function isCurrentPrayer(prayerTime, nextPrayerTime, fajrTime) {
     let isCurrent = false;
     const currentTime = parseInt(time?.match(/\d/g).join(""));
     const currentPrayer = parseInt(prayerTime.match(/\d/g).join(""));
     const nextPrayer = parseInt(nextPrayerTime?.match(/\d/g).join(""));
+    const fajr = parseInt(fajrTime?.match(/\d/g).join(""));
+
     if (
       (currentTime >= currentPrayer && currentTime < nextPrayer) ||
-      (currentTime >= currentPrayer && !nextPrayer)
+      (currentTime >= currentPrayer && !nextPrayer) ||
+      (currentTime < fajr && !nextPrayer)
     ) {
       isCurrent = true;
     }

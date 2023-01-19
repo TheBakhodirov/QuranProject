@@ -1,5 +1,5 @@
 .homepage {
-    padding: 1rem 0 0;
+    padding: 1rem 1rem 0;
     width: 100%;
     height: 100%;
     display: flex;
@@ -8,9 +8,6 @@
     justify-content: center;
     gap: 1rem;
     box-sizing: border-box;
-    // background-image: url("https://wallpapercave.com/wp/wp4699573.jpg");
-    // background-color: #2225;
-    // background-blend-mode: multiply;
 
     .logo {
         font-size: 4rem;
@@ -18,10 +15,13 @@
     }
 
     .links {
+        width: 100%;
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
         justify-content: center;
         gap: 3rem;
+        box-sizing: border-box;
 
         .link-btn {
             width: 350px;
@@ -89,6 +89,20 @@
 
             img {
                 object-position: 30% 0;
+            }
+        }
+    }
+}
+
+@media (max-width:420px) {
+    .homepage{
+        .links{
+            flex-direction: column;
+            a{
+                width: 100%;
+            }
+            .link-btn{
+                width: 100%;
             }
         }
     }
