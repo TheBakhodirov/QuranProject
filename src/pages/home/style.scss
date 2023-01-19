@@ -1,23 +1,26 @@
 .homepage {
+    padding: 1rem 0 0;
     width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 1rem;
+    box-sizing: border-box;
     // background-image: url("https://wallpapercave.com/wp/wp4699573.jpg");
     // background-color: #2225;
     // background-blend-mode: multiply;
 
     .logo {
-        font-size: 3rem;
+        font-size: 4rem;
         margin-bottom: 3rem;
     }
 
     .links {
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        justify-content: center;
         gap: 3rem;
 
         .link-btn {
@@ -25,7 +28,7 @@
             height: 500px;
             position: relative;
             display: flex;
-            align-items: flex-end;
+            align-items: center;
             justify-content: center;
             text-align: center;
             background-color: #3332;
@@ -33,10 +36,12 @@
             background-position: center;
             background-blend-mode: multiply;
             background-size: cover;
+            box-shadow: 0 0 3px #fff5;
             backdrop-filter: blur(4px);
             border-radius: 4px;
             transition: .5s;
             overflow: hidden;
+
 
             img {
                 width: 100%;
@@ -51,24 +56,29 @@
             }
 
             p {
-                width: 100%;
                 margin: 0;
-                padding: .4rem 0 .6rem;
-                font-size: 1.7rem;
-                color: #eee;
+                font-weight: 600;
+                font-size: 2.4rem;
+                line-height: 100%;
+                color: #fff;
+                border-radius: 4px;
                 opacity: 0;
+                filter: blur(10px);
                 transition: inherit;
             }
+
+
 
             &:hover {
 
                 img {
+                    filter: blur(10px);
                     opacity: 1;
                 }
-                
+
                 p {
-                    opacity: .6;
-                    background: #000;
+                    opacity: 1;
+                    filter: blur(0);
                 }
             }
         }
@@ -80,10 +90,6 @@
             img {
                 object-position: 30% 0;
             }
-        }
-
-        .prayer-btn {
-            // background-image: url("https://w0.peakpx.com/wallpaper/324/883/HD-wallpaper-muslims-prayers-black-and-white-islamic-man-muslim-prayer.jpg");
         }
     }
 }

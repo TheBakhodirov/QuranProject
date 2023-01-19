@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import "./App.scss";
 import Player from "./components/audioPlayer/Player";
@@ -7,8 +8,14 @@ import Surah from "./pages/surah/Surah";
 import Surahs from "./pages/surahs/Surahs";
 
 function App() {
+  const { showPlayer } = useSelector((state) => state.player);
+
+  const style = {
+    paddingBottom: showPlayer ? "7rem" : "1rem",
+  };
+
   return (
-    <div className="App">
+    <div className="App" style={style}>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/surah" element={<Surahs />} />

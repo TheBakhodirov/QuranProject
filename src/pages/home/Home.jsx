@@ -9,14 +9,14 @@ const Home = () => {
       <div className="links">
         <Link to={"/surah"}>
           <div className="link-btn surah-btn">
-            <img src="https://i0.wp.com/www.godhdwallpapers.com/wallpapers/2018/11/quran-wallpaper-image-gallery.jpg" />
-            <p>Qur'on suralari</p>
+            <img src="https://i.pinimg.com/736x/8e/c7/b2/8ec7b2e8dc10825f7447d5c9856dfd7f.jpg" />
+            <p>Qur'on <br /> suralari</p>
           </div>
         </Link>
         <Link to={"/prayer"}>
           <div className="link-btn prayer-btn">
             <img src="https://w0.peakpx.com/wallpaper/324/883/HD-wallpaper-muslims-prayers-black-and-white-islamic-man-muslim-prayer.jpg" />
-            <p>Namoz vaqtlari</p>
+            <p>Namoz <br /> vaqtlari</p>
           </div>
         </Link>
       </div>

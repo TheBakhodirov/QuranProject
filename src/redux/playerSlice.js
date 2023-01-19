@@ -34,7 +34,6 @@ const playerSlice = createSlice({
     },
     setCurrentAudioNumber(state, { payload }) {
       state.currentAudioNumber = payload;
-      console.log(payload.audio, payload.number);
     },
     setPause(state, { payload }) {
       state.paused = payload;
@@ -42,11 +41,9 @@ const playerSlice = createSlice({
     play(state) {
       state.isPlaying = true;
       state.paused = false;
-      console.log("isplaying ---", state.isPlaying, "paused ---", state.paused);
     },
     stop(state) {
       state.isPlaying = false;
-      console.log(state.isPlaying);
     },
     setPlayingSurah(state, { payload }) {
       state.playingSurah = payload;

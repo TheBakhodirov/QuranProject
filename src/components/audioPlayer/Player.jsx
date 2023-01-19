@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { playerActions } from "../../redux/playerSlice";
+import { Loader } from "../loader/Loader";
 import "./style.scss";
 
 const Player = () => {
@@ -25,19 +26,9 @@ const Player = () => {
   const [audioStateSuccess, setAudioStateSuccess] = useState(false);
   const [audioStateLoading, setAudioStateLoading] = useState(false);
 
-  // console.log(audioArray);
-  // console.log(
-  //   "CurrentAUDIO ---",
-  //   currentAudioNumber,
-  //   "CurrentNumber --- ",
-  //   currentNumber
-  // );
-
   useEffect(() => {
     setCurrentNumber(currentAudioNumber);
   }, [currentAudioNumber]);
-
-  // console.log("PAUSED BEFORE ---", audioElement.current?.paused);
 
   useEffect(() => {
     if (success) {
@@ -49,6 +40,7 @@ const Player = () => {
     if (isPlaying) {
       audioElement.current.play();
       dispatch(playerActions.setPlayingSurah(true));
+      setProgress(0);
     }
   }, [currentNumber]);
 
@@ -60,7 +52,6 @@ const Player = () => {
       audioElement.current.play();
       dispatch(playerActions.setPause(false));
       dispatch(playerActions.play());
-      // handleEnded();
     } else {
       audioElement.current?.pause();
       dispatch(playerActions.setPause(true));
@@ -84,6 +75,11 @@ const Player = () => {
     }
   }
 
+  function closePlayer() {
+    dispatch(playerActions.hidePlayer());
+    setProgress(0);
+  }
+
   function onPlaying() {
     const duration = audioElement.current.duration;
     const ct = audioElement.current.currentTime;
@@ -100,16 +96,29 @@ const Player = () => {
     setAudioStateLoading(false);
   }
 
+  function onError() {
+    setAudioStateSuccess(false);
+    setAudioStateLoading(false);
+  }
+
+  function onStalled() {
+    if (navigator.onLine) {
+      console.log("Online");
+      setAudioStateLoading(true);
+    } else setAudioStateSuccess(false);
+  }
+
   return showPlayer ? (
     <div className="player">
       <audio
         src={currentAudio}
         ref={audioElement}
-        // onPlay={() => dispatch(playerActions.stop())}
         onEnded={handleEnded}
         onTimeUpdate={onPlaying}
         onLoadStart={onLoading}
         onCanPlay={onLoaded}
+        onError={onError}
+        onStalled={() => onStalled}
       ></audio>
       <div className="player-controls">
         <button className="play-pause-btn" onClick={play}>
@@ -126,20 +135,25 @@ const Player = () => {
           <p className="ayah-in-surah">
             {currentSurahNumber} : {currentNumber === 0 ? 1 : currentNumber}
           </p>
-          <p className="audio-state">
+          <div className="audio-state">
             {audioStateLoading ? (
-              <span className="audio-loading">loading</span>
+              <Loader width="20px" height={null} type="spin" />
             ) : (
               <span className="audio-loading-result">
-                {setAudioStateSuccess ? null : <i className="bi bi-x audio-loading-error"></i>}
+                {audioStateSuccess ? null : (
+                  <i className="bi bi-x audio-loading-error"></i>
+                )}
               </span>
             )}
-          </p>
+          </div>
         </div>
         <div className="progress-bar-wrapper">
           <div className="progress-bar" style={{ width: `${progress}%` }}></div>
         </div>
       </div>
+      <button className="player-close-btn" onClick={closePlayer}>
+        <i className="bi bi-x-lg"></i>
+      </button>
     </div>
   ) : null;
 };

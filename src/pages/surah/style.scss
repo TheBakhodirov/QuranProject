@@ -1,11 +1,29 @@
-.surah{
-    h3{
+.surah {
+    padding-top: 1rem;
+    &-title {
         margin-bottom: 3rem;
         font-size: 2.1rem;
         text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.8rem;
+        
+        p{
+            margin: 0;
+        }
+
+        &-ar-name{
+            font-size: 3rem;
+            color: bisque;
+        }
+
+        &-en-name{
+            font-size: 2.8rem;
+        }
     }
 
-    .ayahs-container{
+    .ayahs-container {
         padding: 0 3rem;
         display: flex;
         flex-direction: column;

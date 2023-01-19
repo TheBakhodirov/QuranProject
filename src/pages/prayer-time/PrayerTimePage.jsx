@@ -3,6 +3,8 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { prayerTimesIcons } from "../../assets/prayerTimesIcons";
+import Error from "../../components/errorMsg/Error";
+import { Loader, LoaderWithWrapper } from "../../components/loader/Loader";
 import "./style.scss";
 
 const api = axios.create({
@@ -10,6 +12,7 @@ const api = axios.create({
 });
 
 const PrayerTime = () => {
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [date, setDate] = useState(null);
   const [time, setTime] = useState(() => getTime());
@@ -19,9 +22,11 @@ const PrayerTime = () => {
 
   useEffect(() => {
     async function getPrayerTime() {
+      setLoading(true);
       const result = await api
         .get(`day?region=${region}`)
         .catch((err) => setError(err));
+      setLoading(false);
       handleData(result.data.times);
       setDate(formatDate("dd/mm/yy"));
       updateTime();
@@ -96,7 +101,16 @@ const PrayerTime = () => {
     return isCurrent;
   }
 
-  return (
+  return loading ? (
+    <LoaderWithWrapper
+      width={"20%"}
+      height={null}
+      type={"bubbles"}
+      color={"#fff7"}
+    />
+  ) : error ? (
+    <Error msg={"Xatolik"} />
+  ) : (
     <div className="prayer-times">
       <h2 className="title">Namoz Vaqtlari</h2>
       <div className="controls">

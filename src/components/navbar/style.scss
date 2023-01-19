@@ -11,14 +11,14 @@
     button{
         flex: 1;
         font-size: 1.2rem;
-        background-color: #333a;
-        backdrop-filter: blur(2px);
+        background-color: #fff3;
+        backdrop-filter: blur(10px);
         border: none;
         outline: none;
 
         &:hover{
-            // background: #111a;
-            filter: brightness(1.4);
+            background: #fda3;
+            // backdrop-filter: saturate(2);
         }
 
         &:not(:last-of-type){
@@ -28,6 +28,6 @@
     
     .home-btn {
         width: 100%;
-        color: #3d6a6a;
+        color: bisque;
     }
 }

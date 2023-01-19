@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { playerActions } from "../../redux/playerSlice";
 import Ayah from "../../components/ayahBox/Ayah";
 import Error from "../../components/errorMsg/Error";
-import Loading from "../../components/loading/Loading";
+import { LoaderWithWrapper } from "../../components/loader/Loader";
 import "./style.scss";
 import { surahActions } from "../../redux/surahSlice";
 
@@ -21,14 +21,15 @@ const Surah = () => {
   const [ayahs, setAyahs] = useState([]);
   const [uzAyahs, setUzAyahs] = useState([]);
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   const { playingSurah } = useSelector((state) => state.player);
-  const { success } = useSelector((state) => state.surah);
+  const { success, loading } = useSelector((state) => state.surah);
   const dispatch = useDispatch();
 
   useEffect(() => {
     async function getSurah() {
-      setLoading(true);
+      // setLoading(true);
+      dispatch(surahActions.getSurahStart());
       const response = await api.get(`/${state.id}/ar.alafasy`).catch((err) => {
         setError(err);
       });
@@ -37,16 +38,18 @@ const Surah = () => {
       setEnName(data.englishName);
       setAyahs(data.ayahs);
       setSurahNumber(data.number);
-      dispatch(surahActions.getSurahSuccess());
+      // dispatch(surahActions.getSurahSuccess());
     }
 
     async function getUzEdit() {
       const response = await api.get(`/${state.id}/uz.sodik`).catch((err) => {
         setError(err);
-        setLoading(false);
+        dispatch(surahActions.getSurahFail());
+        // setLoading(false);
       });
       setUzAyahs(response.data.data.ayahs);
-      setLoading(false);
+      // setLoading(false);
+      dispatch(surahActions.getSurahSuccess());
     }
 
     getSurah();
@@ -65,32 +68,36 @@ const Surah = () => {
     dispatch(playerActions.setCurrentSurahNumber(surahNumber));
   }
 
-  return !loading ? (
-    !error ? (
-      <div className="surah">
-        <h3>
-          {arName} - {enName}
-        </h3>
-        <div className="ayahs-container">
-          {ayahs.map((item, i) => {
-            return (
-              <Ayah
-                key={i}
-                number={item.numberInSurah}
-                arText={item.text}
-                uzText={uzAyahs[i].text}
-                audio={item.audio}
-                changeSurah={changeSurah}
-              />
-            );
-          })}
-        </div>
-      </div>
-    ) : (
-      <Error />
-    )
+  return loading ? (
+    <LoaderWithWrapper
+      width={"20%"}
+      height={null}
+      type={"bubbles"}
+      color={"#fff7"}
+    />
+  ) : error ? (
+    <Error msg={"Xatolik"} />
   ) : (
-    <Loading />
+    <div className="surah">
+      <div className="surah-title">
+        <p className="surah-title-ar-name">{arName}</p>
+        <p className="surah-title-en-name">{enName}</p>
+      </div>
+      <div className="ayahs-container">
+        {ayahs.map((item, i) => {
+          return (
+            <Ayah
+              key={i}
+              number={item.numberInSurah}
+              arText={item.text}
+              uzText={uzAyahs[i].text}
+              audio={item.audio}
+              changeSurah={changeSurah}
+            />
+          );
+        })}
+      </div>
+    </div>
   );
 };
 
