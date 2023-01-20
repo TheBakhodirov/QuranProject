@@ -26,14 +26,17 @@ const Surahs = () => {
       });
       dispatch(surahActions.getSurahSuccess());
       setSurahs(response.data.data);
-
-      // console.log(response.data.data);
     };
     getSurahs();
   }, []);
 
   return loading ? (
-    <LoaderWithWrapper width={"20%"} height={null} type={"bubbles"} color={"#fff7"} />
+    <LoaderWithWrapper
+      width={"20%"}
+      height={null}
+      type={"bubbles"}
+      color={"#fff7"}
+    />
   ) : error ? (
     <Error msg={"Xatolik"} />
   ) : (

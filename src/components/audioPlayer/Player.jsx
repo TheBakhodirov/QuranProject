@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { playerActions } from "../../redux/playerSlice";
 import { Loader } from "../loader/Loader";
 import "./style.scss";
@@ -16,67 +17,67 @@ const Player = () => {
     currentAudio,
     currentAudioNumber,
     isPlaying,
-    paused,
   } = useSelector((state) => state.player);
   const { success } = useSelector((state) => state.surah);
   const audioElement = useRef();
   const dispatch = useDispatch();
-  const [currentNumber, setCurrentNumber] = useState(0);
   const [progress, setProgress] = useState(0);
   const [audioStateSuccess, setAudioStateSuccess] = useState(false);
   const [audioStateLoading, setAudioStateLoading] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    setCurrentNumber(currentAudioNumber);
-  }, [currentAudioNumber]);
+    if (showPlayer) {
+      dispatch(playerActions.setPlayingSurah(true));
+    } else dispatch(playerActions.setPlayingSurah(false));
+  }, [showPlayer]);
 
   useEffect(() => {
     if (success) {
-      dispatch(playerActions.setCurrentAudio(audioArray[currentNumber]?.audio));
+      dispatch(playerActions.setCurrentAudio(audioArray[0]?.audio));
     }
   }, [success]);
 
   useEffect(() => {
+    audioElement.current?.play();
+    setProgress(0);
+  }, [currentAudioNumber, currentSurahNumber]);
+
+  useEffect(() => {
     if (isPlaying) {
       audioElement.current.play();
-      dispatch(playerActions.setPlayingSurah(true));
-      setProgress(0);
+    } else {
+      audioElement.current?.pause();
     }
-  }, [currentNumber]);
+  }, [isPlaying]);
 
   function play() {
     if (audioElement.current?.paused) {
-      if (currentNumber === 0) {
-        setCurrentNumber((currentNumber) => currentNumber + 1);
+      if (currentAudioNumber === 0) {
+        dispatch(playerActions.setCurrentAudioNumber(currentAudioNumber + 1));
       }
-      audioElement.current.play();
-      dispatch(playerActions.setPause(false));
       dispatch(playerActions.play());
     } else {
-      audioElement.current?.pause();
-      dispatch(playerActions.setPause(true));
-      dispatch(playerActions.stop());
+      dispatch(playerActions.pause());
     }
-
-    dispatch(playerActions.setPlayingSurah(true));
   }
 
   function handleEnded() {
-    if (currentNumber === audioArray.length) {
-      audioElement.current.pause();
-      dispatch(playerActions.stop());
-      dispatch(playerActions.setPause(true));
-      setCurrentNumber(0);
+    if (currentAudioNumber === audioArray.length) {
+      dispatch(playerActions.pause());
+      dispatch(playerActions.setCurrentAudioNumber(0));
       dispatch(playerActions.setCurrentAudio(audioArray[0].audio));
       return;
     } else {
-      setCurrentNumber((currentNumber) => currentNumber + 1);
-      dispatch(playerActions.setCurrentAudio(audioArray[currentNumber].audio));
+      dispatch(playerActions.setCurrentAudioNumber(currentAudioNumber + 1));
+      dispatch(
+        playerActions.setCurrentAudio(audioArray[currentAudioNumber].audio)
+      );
     }
   }
 
   function closePlayer() {
-    dispatch(playerActions.hidePlayer());
+    dispatch(playerActions.closePlayer());
     setProgress(0);
   }
 
@@ -103,7 +104,6 @@ const Player = () => {
 
   function onStalled() {
     if (navigator.onLine) {
-      console.log("Online");
       setAudioStateLoading(true);
     } else setAudioStateSuccess(false);
   }
@@ -122,22 +122,25 @@ const Player = () => {
       ></audio>
       <div className="player-controls">
         <button className="play-pause-btn" onClick={play}>
-          {paused ? (
-            <i className="bi bi-play-fill"></i>
-          ) : (
+          {isPlaying ? (
             <i className="bi bi-pause-fill"></i>
+          ) : (
+            <i className="bi bi-play-fill"></i>
           )}
         </button>
       </div>
       <div className="player-info">
-        <div className="name">
-          <p className="surah-name">{currentSurah}</p>
-          <p className="ayah-in-surah">
-            {currentSurahNumber} : {currentNumber === 0 ? 1 : currentNumber}
-          </p>
+        <div className="surah-info">
+          <span className="surah-info-name-number">
+            <p className="surah-name">{currentSurah}</p>
+            <p className="ayah-in-surah">
+              {currentSurahNumber} :{" "}
+              {currentAudioNumber === 0 ? 1 : currentAudioNumber}
+            </p>
+          </span>
           <div className="audio-state">
             {audioStateLoading ? (
-              <Loader width="20px" height={null} type="spin" />
+              <Loader width="16px" height={null} type="spin" />
             ) : (
               <span className="audio-loading-result">
                 {audioStateSuccess ? null : (
