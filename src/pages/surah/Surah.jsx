@@ -17,38 +17,33 @@ const Surah = () => {
   const state = useParams();
   const [arName, setArName] = useState(null);
   const [enName, setEnName] = useState(null);
-  const [surahNumber, setSurahNumber] = useState(1);
+  const [surahNumber, setSurahNumber] = useState(0);
   const [ayahs, setAyahs] = useState([]);
   const [uzAyahs, setUzAyahs] = useState([]);
   const [error, setError] = useState(null);
-  // const [loading, setLoading] = useState(false);
   const { playingSurah } = useSelector((state) => state.player);
   const { success, loading } = useSelector((state) => state.surah);
   const dispatch = useDispatch();
 
   useEffect(() => {
     async function getSurah() {
-      // setLoading(true);
       dispatch(surahActions.getSurahStart());
       const response = await api.get(`/${state.id}/ar.alafasy`).catch((err) => {
         setError(err);
       });
-      const data = response.data.data;
-      setArName(data.name);
-      setEnName(data.englishName);
-      setAyahs(data.ayahs);
-      setSurahNumber(data.number);
-      // dispatch(surahActions.getSurahSuccess());
+      const data = response?.data.data;
+      setArName(data?.name);
+      setEnName(data?.englishName);
+      setAyahs(data?.ayahs);
+      setSurahNumber(data?.number);
     }
 
     async function getUzEdit() {
       const response = await api.get(`/${state.id}/uz.sodik`).catch((err) => {
         setError(err);
         dispatch(surahActions.getSurahFail());
-        // setLoading(false);
       });
-      setUzAyahs(response.data.data.ayahs);
-      // setLoading(false);
+      setUzAyahs(response?.data.data.ayahs);
       dispatch(surahActions.getSurahSuccess());
     }
 
@@ -65,7 +60,6 @@ const Surah = () => {
   function changeSurah() {
     dispatch(playerActions.setAudios(ayahs));
     dispatch(playerActions.setCurrentSurahName(enName));
-    dispatch(playerActions.setCurrentSurahNumber(surahNumber));
   }
 
   return loading ? (
@@ -88,9 +82,10 @@ const Surah = () => {
           return (
             <Ayah
               key={i}
+              surahNumber={surahNumber}
               number={item.numberInSurah}
               arText={item.text}
-              uzText={uzAyahs[i].text}
+              uzText={uzAyahs[i]?.text}
               audio={item.audio}
               changeSurah={changeSurah}
             />

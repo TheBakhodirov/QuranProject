@@ -6,19 +6,21 @@ const playerSlice = createSlice({
     audioArray: [],
     showPlayer: false,
     currentSurah: "",
-    currentSurahNumber: 1,
+    currentSurahNumber: 0,
     currentAudio: null,
     currentAudioNumber: 0,
     isPlaying: false,
-    paused: true,
     playingSurah: false,
   },
   reducers: {
     showPlayer(state) {
       state.showPlayer = true;
     },
-    hidePlayer(state) {
+    closePlayer(state) {
       state.showPlayer = false;
+      state.isPlaying = false;
+      state.currentSurahNumber = 0;
+      state.currentAudioNumber = 0;
     },
     setAudios(state, { payload }) {
       state.audioArray = payload;
@@ -42,7 +44,7 @@ const playerSlice = createSlice({
       state.isPlaying = true;
       state.paused = false;
     },
-    stop(state) {
+    pause(state) {
       state.isPlaying = false;
     },
     setPlayingSurah(state, { payload }) {

@@ -8,11 +8,11 @@
     justify-content: center;
     text-align: center;
     font-family: 'Raleway', sans-serif;
-    // background-color: #2f4f4faa;
     background-color: #2225;
-    box-shadow: 0 0 100px  #aaa3 inset;
+    box-shadow: 0 0 100px #aaa3 inset;
     backdrop-filter: blur(10px);
     border-radius: 10px;
+    transition: .2s;
 
     &-number {
         width: 50px;
