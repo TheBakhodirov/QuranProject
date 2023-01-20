@@ -32,7 +32,7 @@ const PrayerTime = () => {
       updateTime();
     }
     getPrayerTime();
-  }, []);
+  }, [region]);
 
   useEffect(() => {
     setTime(getTime());
@@ -124,10 +124,30 @@ const PrayerTime = () => {
   ) : (
     <div className="prayer-times">
       <h2 className="title">Namoz Vaqtlari</h2>
-      <div className="controls">
+      <div className="info">
         <p className="region">{region}</p>
         <p className="date">{date}</p>
         <p className="time">{time}</p>
+      </div>
+      <div className="controls">
+        <select
+          className="select-region"
+          onChange={(e) => setRegion(e.target.value)}
+          defaultValue={region}
+        >
+          <option value="Toshkent">Toshkent</option>
+          <option value="Andijon">Andijon</option>
+          <option value="Namangan">Namangan</option>
+          <option value="Farg'ona">Farg'ona</option>
+          <option value="Guliston">Guliston</option>
+          <option value="Jizzax">Jizzax</option>
+          <option value="Qarshi">Qarshi</option>
+          <option value="Samarqand">Samarqand</option>
+          <option value="Navoiy">Navoiy</option>
+          <option value="Buxoro">Buxoro</option>
+          <option value="Xiva">Xiva</option>
+          <option value="Nukus">Nukus</option>
+        </select>
       </div>
       <div className="prayer-box">
         {prayers.map((prayer, index) => {
