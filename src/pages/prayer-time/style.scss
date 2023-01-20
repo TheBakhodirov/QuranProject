@@ -14,13 +14,25 @@
         }
     }
 
-    .controls {
+    .info {
+        margin-top: 1rem;
         display: flex;
         gap: 1rem;
         font-size: 1.2rem;
 
         p {
-            margin-bottom: 0;
+            margin: 0;
+        }
+    }
+
+    .controls {
+        margin-top: .4rem;
+
+        .select-region {
+            padding: .2rem 1.4rem;
+            font-size: 1.1rem;
+            border: none;
+            outline: none;
         }
     }
 
