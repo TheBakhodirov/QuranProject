@@ -30,3 +30,11 @@
         gap: 2rem;
     }
 }
+
+@media (max-width:576px) {
+    .surah {
+        .ayahs-container{
+            padding: 0 1rem;
+        }
+    }
+}
